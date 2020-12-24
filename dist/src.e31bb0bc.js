@@ -29985,6 +29985,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function Cart() {
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h3", null, "Shopping Cart"));
 }
+},{"react":"../node_modules/react/index.js"}],"components/cart-item.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = CartItem;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function CartItem() {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h5", null, "Cart Item"));
+}
 },{"react":"../node_modules/react/index.js"}],"components/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -30021,6 +30036,12 @@ Object.defineProperty(exports, "Cart", {
     return _cart.default;
   }
 });
+Object.defineProperty(exports, "CartItem", {
+  enumerable: true,
+  get: function () {
+    return _cartItem.default;
+  }
+});
 
 var _home = _interopRequireDefault(require("./home"));
 
@@ -30032,8 +30053,10 @@ var _moodToggler = _interopRequireDefault(require("./moodToggler"));
 
 var _cart = _interopRequireDefault(require("./cart"));
 
+var _cartItem = _interopRequireDefault(require("./cart-item"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./home":"components/home.js","./about":"components/about.js","./counter":"components/counter.js","./moodToggler":"components/moodToggler.js","./cart":"components/cart.js"}],"app.js":[function(require,module,exports) {
+},{"./home":"components/home.js","./about":"components/about.js","./counter":"components/counter.js","./moodToggler":"components/moodToggler.js","./cart":"components/cart.js","./cart-item":"components/cart-item.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30048,7 +30071,7 @@ var _components = require("./components");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function App() {
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_components.Cart, null));
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_components.Cart, null), /*#__PURE__*/_react.default.createElement(_components.CartItem, null));
 }
 },{"react":"../node_modules/react/index.js","./components":"components/index.js"}],"index.js":[function(require,module,exports) {
 "use strict";

@@ -4,11 +4,12 @@ import { About } from './components'
 import { MoodToggler } from './components'
 import { Counter } from './components'
 import { Cart } from './components'
-
+import { CartItem } from './components'
 export default function App() {
   return (
     <>
       <Cart />
+      <CartItem />
       {/* <Home />
       <About />
       <div className="hero">
