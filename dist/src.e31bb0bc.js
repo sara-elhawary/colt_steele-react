@@ -29787,7 +29787,9 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function Home() {
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, "Home"));
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "heading"
+  }, /*#__PURE__*/_react.default.createElement("h3", null, "Home"));
 }
 },{"react":"../node_modules/react/index.js"}],"components/about.js":[function(require,module,exports) {
 "use strict";
@@ -29804,7 +29806,79 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function About() {
   return /*#__PURE__*/_react.default.createElement("div", null);
 }
-},{"react":"../node_modules/react/index.js"}],"components/counter.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/index.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/counter.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29813,6 +29887,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Counter;
 
 var _react = _interopRequireWildcard(require("react"));
+
+require("./index.css");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -29830,19 +29906,24 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function Counter() {
+function Counter(_ref) {
+  var _ref$step = _ref.step,
+      step = _ref$step === void 0 ? 1 : _ref$step;
+
   var _useState = (0, _react.useState)(0),
       _useState2 = _slicedToArray(_useState, 2),
       count = _useState2[0],
       setCount = _useState2[1];
 
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h3", null, count), /*#__PURE__*/_react.default.createElement("button", {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "counter"
+  }, /*#__PURE__*/_react.default.createElement("h3", null, count), /*#__PURE__*/_react.default.createElement("button", {
     onClick: function onClick() {
-      return setCount(count + 1);
+      return setCount(count + step);
     }
   }, "Increment"));
 }
-},{"react":"../node_modules/react/index.js"}],"components/moodToggler.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./index.css":"components/index.css"}],"components/moodToggler.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29878,9 +29959,31 @@ function MoodToggler() {
     return setIsHappy(!isHappy);
   };
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, isHappy ? ':)' : ':('), /*#__PURE__*/_react.default.createElement("button", {
+  var styles = {
+    color: isHappy ? 'green' : 'red'
+  };
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "toggler"
+  }, /*#__PURE__*/_react.default.createElement("h3", {
+    style: styles
+  }, isHappy ? ':)' : ':('), /*#__PURE__*/_react.default.createElement("button", {
     onClick: toggleIsHappy
   }, "Toggle"));
+}
+},{"react":"../node_modules/react/index.js"}],"components/cart.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Cart;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Cart() {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h3", null, "Shopping Cart"));
 }
 },{"react":"../node_modules/react/index.js"}],"components/index.js":[function(require,module,exports) {
 "use strict";
@@ -29912,6 +30015,12 @@ Object.defineProperty(exports, "MoodToggler", {
     return _moodToggler.default;
   }
 });
+Object.defineProperty(exports, "Cart", {
+  enumerable: true,
+  get: function () {
+    return _cart.default;
+  }
+});
 
 var _home = _interopRequireDefault(require("./home"));
 
@@ -29921,8 +30030,10 @@ var _counter = _interopRequireDefault(require("./counter"));
 
 var _moodToggler = _interopRequireDefault(require("./moodToggler"));
 
+var _cart = _interopRequireDefault(require("./cart"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./home":"components/home.js","./about":"components/about.js","./counter":"components/counter.js","./moodToggler":"components/moodToggler.js"}],"app.js":[function(require,module,exports) {
+},{"./home":"components/home.js","./about":"components/about.js","./counter":"components/counter.js","./moodToggler":"components/moodToggler.js","./cart":"components/cart.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29937,7 +30048,7 @@ var _components = require("./components");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function App() {
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_components.Home, null), /*#__PURE__*/_react.default.createElement(_components.About, null), /*#__PURE__*/_react.default.createElement(_components.MoodToggler, null), /*#__PURE__*/_react.default.createElement(_components.Counter, null));
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_components.Cart, null));
 }
 },{"react":"../node_modules/react/index.js","./components":"components/index.js"}],"index.js":[function(require,module,exports) {
 "use strict";

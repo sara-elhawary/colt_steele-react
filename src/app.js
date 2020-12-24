@@ -3,14 +3,18 @@ import { Home } from './components'
 import { About } from './components'
 import { MoodToggler } from './components'
 import { Counter } from './components'
+import { Cart } from './components'
 
 export default function App() {
   return (
     <>
-      <Home />
+      <Cart />
+      {/* <Home />
       <About />
-      <MoodToggler />
-      <Counter />
+      <div className="hero">
+        <MoodToggler />
+        <Counter step={5} />
+      </div> */}
     </>
   )
 }

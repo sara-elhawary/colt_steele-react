@@ -3,9 +3,10 @@ import React, { useState } from 'react'
 export default function MoodToggler() {
   const [isHappy, setIsHappy] = useState(true)
   const toggleIsHappy = () => setIsHappy(!isHappy)
+  const styles = { color: isHappy ? 'green' : 'red' }
   return (
-    <div>
-      <h3>{isHappy ? ':)' : ':('}</h3>
+    <div className="toggler">
+      <h3 style={styles}>{isHappy ? ':)' : ':('}</h3>
       <button onClick={toggleIsHappy}>Toggle</button>
     </div>
   )
